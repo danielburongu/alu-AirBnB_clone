@@ -9,7 +9,7 @@ AirBnB Clone - The console
 The initial phase of this project involves developing a replica of the AirBnB website. The primary objective is to design a program that can convert objects into JSON files, store them persistently, and reload them when the application starts to ensure data continuity across sessions.
 
 The subsequent phase aims to construct a console for managing the stored data. This console allows users to update, delete, and create new instances of any data class. Additionally, it tracks the creation and update timestamps of the objects it manages.
-<br>b
+<br>
 | Task | Files | Description |
 | ----- | ----- | ------ |
 | 0: AUTHORS/README File | [AUTHORS](https://github.com/danielburongu/alu-AirBnB_clone/blob/main/AUTHORS) | The authors for the project |
