@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         if num_of_args >= 2 and len(args) < 2:
             print(msg[2])
             return 1
-        d = storage.all()
+        d = models.storage.all()
 
         for i in range(len(args)):
             if args[i][0] == '"':
@@ -87,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
         """Handles the 'quit' command
 
         Args:
-            line(args): input argument for quiting
+            line(args): input argument for quitting
             the terminal
 
         """
@@ -137,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
         if (self.my_errors(line, 2) == 1):
             return
         args = line.split()
-        d = storage.all()
+        d = models.storage.all()
         if args[1][0] == '"':
             args[1] = args[1].replace('"', "")
         key = args[0] + '.' + args[1]
@@ -154,12 +154,12 @@ class HBNBCommand(cmd.Cmd):
         if (self.my_errors(line, 2) == 1):
             return
         args = line.split()
-        d = storage.all()
+        d = models.storage.all()
         if args[1][0] == '"':
             args[1] = args[1].replace('"', "")
         key = args[0] + '.' + args[1]
         del d[key]
-        storage.save()
+        models.storage.save()
 
     def do_all(self, line):
         """Shows all instances, or instances of a certain class
@@ -169,7 +169,7 @@ class HBNBCommand(cmd.Cmd):
             Example: 'all' OR 'all User'
 
         """
-        d = storage.all()
+        d = models.storage.all()
         if not line:
             print([str(x) for x in d.values()])
             return
@@ -192,7 +192,7 @@ class HBNBCommand(cmd.Cmd):
         if (self.my_errors(line, 4) == 1):
             return
         args = line.split()
-        d = storage.all()
+        d = models.storage.all()
         for i in range(len(args[1:]) + 1):
             if args[i][0] == '"':
                 args[i] = args[i].replace('"', "")
@@ -214,14 +214,14 @@ class HBNBCommand(cmd.Cmd):
                 print("Entered wrong value type")
                 return
         setattr(d[key], attr_k, attr_v)
-        storage.save()
+        models.storage.save()
 
     def my_count(self, class_n):
         """
         Method counts instances of a certain class
         """
         count_instance = 0
-        for instance_object in storage.all().values():
+        for instance_object in models.storage.all().values():
             if instance_object.__class__.__name__ == class_n:
                 count_instance += 1
         print(count_instance)
