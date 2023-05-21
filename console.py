@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
         """Quits command interpreter with ctrl+d
 
          Args:
-            line(args): input argument for quiting
+            line(args): input argument for quitting
             the terminal
 
         """
