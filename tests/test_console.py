@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Test for console
 
-all unittests for console.py, all features!
+all unittest for console.py, all features!
 
 """
 import os
