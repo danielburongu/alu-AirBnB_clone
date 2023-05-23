@@ -66,7 +66,7 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Method returns a dictionary containing all keys/values of __dict__ instance
+        Method returns a dictionary containing all keys/values
         """
         map_objects = {}
         for key, value in self.__dict__.items():
