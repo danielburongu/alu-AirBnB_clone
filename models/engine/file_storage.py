@@ -1,61 +1,54 @@
-#!/usr/bin/env python
-"""A module that that serializes instances to a JSON file and deserializes
-JSON file to instances"""
-
+#!/usr/bin/python3
 import json
 import os
-from models.base_model import BaseModel
-from models.user import User
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
+"""File Storage module. Currently to JSON files"""
 
 
 class FileStorage:
+    """Serialize into JSON file"""
 
-    # __file_path is the path to the JSON file to store all objects.
-    __file_path = 'storage.json'
-
-    # __objects is a dictionary that stores all objects by <class name>.id
-    # the object (value of key) is stored like this:
+    __file_path = "./file.json"
     __objects = {}
 
+    def __init__(self):
+        """Init"""
+        pass
+
+    def destroy(self, objid):
+        """Destroy the object in the json file"""
+        for k, v in type(self).__objects.items():
+            if k.split(".")[-1] == objid:
+                del type(self).__objects[k]
+                return
+
     def all(self):
-        return self.__objects
+        """Return all objects in dict form"""
+        return type(self).__objects
 
-    # sets in __objects the obj with key <obj class name>.id
     def new(self, obj):
-        """Add obj with key <obj class name>.id to dictionary.
+        """Add a new object into the dict"""
+        name = type(obj).__name__
+        type(self).__objects[name + "." + str(obj.id)] = obj
 
-        Args:
-
-        obj: the object with key <obj class name>.id
-        """
-        key = obj.__class__.__name__ + '.' + obj.id
-        # json_data = json.dump(obj)
-        self.__objects[key] = obj
-
-    # serializes __objects to the JSON file (path: __file_path)
     def save(self):
-        """ Serializes __objects to the JSON file (path: __file_path)."""
-        json_obj = {}
-        for key in self.__objects.keys():
-            json_obj[key] = self.__objects[key].to_dict()
-
-        with open(self.__file_path, 'w') as json_file:
-            json.dump(json_obj, json_file)
+        """Save all objects in the dict into a file"""
+        tempdict = {k: v.to_dict() for k, v in type(self).__objects.items()}
+        with open(type(self).__file_path, "w+") as f:
+            json.dump(tempdict, f)
 
     def reload(self):
-        """Deserializes the JSON file to __objects (only if the JSON file"""
-        """(path: __file_path) exists ; otherwise, do nothing."""
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, 'r') as json_file:
-                json_obj = json.load(json_file)
-                for key in json_obj.keys():
+        """Reload all objects from a file into the dict"""
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.place import Place
+        from models.amenity import Amenity
+        from models.review import Review
 
-                    # By providing the dict value stored in json_obj[key] as
-                    # kwargs, generate an object with the same attributes
-                    self.__objects[key] = eval(
-                        json_obj[key]['__class__'])(**json_obj[key])
+        if os.path.exists(type(self).__file_path):
+            with open(type(self).__file_path) as f:
+                tempdict = json.load(f)
+            for k, v in tempdict.items():
+                classn = v["__class__"]
+                type(self).__objects[k] = eval(classn + "(**v)")
