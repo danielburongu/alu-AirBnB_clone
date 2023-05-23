@@ -15,15 +15,11 @@ from models.state import State
 
 class FileStorage:
 
-    # private class attributes
     # __file_path is the path to the JSON file to store all objects.
     __file_path = 'storage.json'
 
     # __objects is a dictionary that stores all objects by <class name>.id
-    # ex: to store a BaseModel object with id=12121212, the key will be
-    # BaseModel.12121212 and the value will be the object.
     # the object (value of key) is stored like this:
-    # <models.base_model.BaseModel object at 0x7f3329dac310>
     __objects = {}
 
     def all(self):
