@@ -50,16 +50,3 @@ class BaseModel:
         formatted_dict['updated_at'] = formatted_dict['updated_at'].isoformat()
         formatted_dict['__class__'] = self.__class__.__name__
         return formatted_dict
-# Test case for the save() method
-if __name__ == '__main__':
-    # Create an instance of BaseModel
-    base_model = BaseModel()
-
-    # Call the save() method
-    base_model.save()
-
-    # Check if the updated_at attribute has been updated
-    if base_model.updated_at > base_model.created_at:
-        print("OK")
-    else:
-        print("Failed: updated_at attribute was not properly updated")
