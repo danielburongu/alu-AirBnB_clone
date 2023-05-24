@@ -5,7 +5,7 @@ from models import BaseModel
 
 
 class Place(BaseModel):
-    """Place class"""
+    """Place class (basemodel) """
 
     # class attributes
     city_id = ""  # string - empty string: it will be the City.id
